@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eksklusif for S</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .fade {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .show {
+            opacity: 1;
+        }
+        #no-btn {
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body class="flex items-center justify-center h-screen bg-pink-100">
+
+    <audio id="bg-music" autoplay loop></audio>
+    
+    <div class="bg-white p-8 rounded-2xl shadow-lg text-center max-w-md">
+        <h1 class="text-2xl font-bold text-pink-600">Hai, Selvi! 💖</h1>
+        
+        <div id="slide-container" class="mt-4 text-gray-700 text-lg">
+            <img id="slide-img" src="" class="w-32 mx-auto mb-4 hidden">
+            <p id="slide-text" class="fade show">Hai Selviiii~</p>
+        </div>
+
+        <div class="mt-6 space-x-4 relative">
+            <button onclick="nextSlide()" class="px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600">Lanjut</button>
+        </div>
+    </div>
+
+    <script>
+        const slides = [
+            { text: "Hai Selviiii~", img: "https://assets.onecompiler.app/438cspe3t/43cc2d2k4/stiker1.gif" },
+            { text: "Kamu tahu nggak? Kamu itu kayak senja di ujung hari—selalu ditunggu-tunggu dan nggak pernah gagal bikin hati tenang.", img: "https://assets.onecompiler.app/438cspe3t/43cc2d2k4/stiker2.gif" },
+            { text: "Cantik? Jelas. Pintar? Udah pasti. Imut? Aduh, jangan ditanya! Apalagi kalau lagi senyum, dunia serasa lebih cerah.", img: "https://assets.onecompiler.app/438cspe3t/43cc2d2k4/stiker3.gif" },
+            { text: "Jadi Selvi, kalau suatu hari kamu tanya kenapa aku masih di sini, jawabannya gampang: karena nggak ada tempat lain yang lebih nyaman selain di sampingmu. 💖✨", img: "https://assets.onecompiler.app/438cspe3t/43cc2d2k4/stiker4.gif" },
+            { text: "Kamu tau nggak? Kalau aku sayang kamu, tapi", img: "https://assets.onecompiler.app/438cspe3t/43cc2d2k4/stiker1.gif" },
+            { text: "Tapi boong 😜", img: "https://assets.onecompiler.app/438cspe3t/43cc2d2k4/stiker2.gif" },
+            { text: "Eh, beneran deh. Aku sayang banget sama kamu.", img: "https://assets.onecompiler.app/438cspe3t/43cc2d2k4/stiker3.gif" },
+            { text: "Kamu mau gak jadi pacar aku?", img: "https://assets.onecompiler.app/438cspe3t/43cc2d2k4/stiker4.gif" }
+        ];
+        let currentSlide = 0;
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                document.getElementById("slide-text").classList.remove("show");
+                setTimeout(() => {
+                    document.getElementById("slide-text").innerText = slides[currentSlide].text;
+                    document.getElementById("slide-img").src = slides[currentSlide].img;
+                    document.getElementById("slide-img").classList.remove("hidden");
+                    document.getElementById("slide-text").classList.add("show");
+                }, 500);
+            } else {
+                Swal.fire({
+                    title: "Kamu mau nggak jadi pacar aku? 🥰",
+                    showDenyButton: true,
+                    confirmButtonText: "Mau",
+                    denyButtonText: "!Enggak Mau",
+                    preDeny: () => {
+                        moveButton();
+                        return false;
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            title: 'Yeyy!',
+                            text: 'Kita resmi jadian! 💖 #INICUMAJOKE',
+                            icon: 'success',
+                            confirmButtonText: 'Chat di WhatsApp'
+                        }).then(() => {
+                            window.location.href = "https://wa.me/6283156980314?text=Hai%20Selvi!%20Aku%20BERCANDAAA!!!!!!%20💖";
+                        });
+                    }//if
+                });
+            } //else
+        }//function nextSlide
+
+        function moveButton() {
+                let x = Math.random() * window.innerWidth * 0.7;
+                let y = Math.random() * window.innerHeight * 0.7;
+                Swal.getDenyButton().style.position = "absolute";
+                Swal.getDenyButton().style.left = x + "px";
+                Swal.getDenyButton().style.top = y + "px";
+            }
+
+            // Music
+        const bgMusic = new Audio("Music/w2e_season.mp3");
+        bgMusic.loop = true;
+
+        function playMusic() {
+            bgMusic.play().catch(error => console.log("Autoplay tidak diizinkan:", error));
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            Swal.fire({
+                title: "Klik OK untuk memulai pengalaman spesial ini 🎶",
+                confirmButtonText: "OK"
+            }).then(() => {
+                playMusic();
+            });
+        });
+
+
+    </script>
+
+</body>
+</html>
